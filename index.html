@@ -28,6 +28,8 @@
 
     function sketchProc(p5) {
 
+        "use strict";
+
         function getRandomInt(max) {
             return 0 | Math.random() * max + 1;
         }
@@ -94,29 +96,30 @@
             return this.max * Math.sin(p5.radians(Math.PI * p5.frameCount));
         };
 
-        var lfo1 = new LFO(300);
+        var lfo1 = new LFO(200);
         var lfo2 = new LFO(200);
 
-	function drawShape(x,y){
-		var n = parseInt(lfo1.run(),10);
-		var m = parseInt(lfo2.run(),10);
-		//var xRand = p5.lerp(n,1,n,1);
-		for (var i=1; i < 100; i++) {
-			var noise = p5.noise(5) * 20 ;
-			p5.pushMatrix();
-			p5.translate(centerX, 250);
-			p5.rotate(10);
-			p5.fill(n,20,i,77);
-			p5.strokeWeight(0.5);
-			p5.stroke(120.0);
-			p5.bezier(i,i,n,y,i,i * m,x,i);
-			p5.popMatrix();
-		}
-	}
-        var rColor = [p5.random(120,255), p5.random(120,255), p5.random(120,255)];
+//        function drawShape(x, y) {
+//            var n = parseInt(lfo1.run(), 10);
+//            var m = parseInt(lfo2.run(), 10);
+//            //var xRand = p5.lerp(n,1,n,1);
+//            for (var i = 1; i < 100; i++) {
+//                var noise = p5.noise(5) * 20;
+//                p5.pushMatrix();
+//                p5.translate(centerX, 250);
+//                p5.rotate(10);
+//                p5.fill(n, 20, i, 77);
+//                p5.strokeWeight(0.5);
+//                p5.stroke(120.0);
+//                p5.bezier(i, i, n, y, i, i * m, x, i);
+//                p5.popMatrix();
+//            }
+//        }
+
+        //var rColor = [p5.random(120, 255), p5.random(120, 255), p5.random(120, 255)];
         var verde = [232, 247, 238];
         var fontA = p5.loadFont("Gulim.ttf");
-        var walker  = new Walker(0 - 200, 0);
+        var walker = new Walker(0 - 200, 0);
         var walker2 = new Walker(0 + 200, 0);
         var walker3 = new Walker(0 - 250, -50);
         var walker4 = new Walker(0 + 250, -50);
@@ -130,26 +133,25 @@
             p5.textFont(fontA, 34);
             p5.frameRate(frameRate);
             p5.smooth();
-            //p5.background.apply(this, pink);
             p5.background.apply(this, verde);
         };
 
         p5.draw = function () {
-            //p5.background(lfo1.run() % 255, lfo1.run() % 255, lfo1.run() % 255)
             p5.pushMatrix();
             p5.translate(centerX, centerY);
             walker.run({direction: "right"});
             walker2.run({direction: 'left'});
             walker3.run({direction: 'right'});
             walker4.run({direction: 'left'});
-            //p5.stroke(233, 33, 22);
-
-            //p5.ellipse(0,0,lfo1.run(),lfo1.run());
             p5.popMatrix();
+            p5.ellipse(centerX, pHeight ,225,225);
+            p5.fill(255);
+            p5.stroke(lfo1.run()%255);
+            p5.text("MEDIA-LABS", centerX - 105, pHeight-30, 200, 200);
+            p5.fill.apply(this, verde);
             p5.textAlign(100, 400);
-            p5.fill.apply(this,verde);
-            _.times(18, function(i){
-                p5.text("Signal to noise", 175, i * 28);
+            _.times(15, function (i) {
+                p5.text("SIGNAL-TO-NOISE", 150, i * 28);
             })
             //p5.noFill();
             // bezier(x1, y1, cx1, cy1, cx2, cy2, x2, y2);
