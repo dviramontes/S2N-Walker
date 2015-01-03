@@ -130,10 +130,20 @@
             centerY = p5.height / 2;
             pWidth = p5.width;
             pHeight = p5.height;
+
             p5.textFont(fontA, 34);
             p5.frameRate(frameRate);
             p5.smooth();
+
             p5.background.apply(this, verde);
+            p5.strokeWeight(0.55);
+            p5.stroke(120);
+            p5.noFill();
+            p5.ellipse(pWidth - 60, pHeight -60 ,100,100);
+            p5.fill(0);
+            p5.textSize(14);
+            p5.text("MEDIA-LABS", pWidth - 102, pHeight - 55);
+
         };
 
         p5.draw = function () {
@@ -144,12 +154,9 @@
             walker3.run({direction: 'right'});
             walker4.run({direction: 'left'});
             p5.popMatrix();
-            p5.ellipse(centerX, pHeight ,225,225);
-            p5.fill(255);
-            p5.stroke(lfo1.run()%255);
-            p5.text("MEDIA-LABS", centerX - 105, pHeight-30, 200, 200);
             p5.fill.apply(this, verde);
             p5.textAlign(100, 400);
+            p5.textSize(32);
             _.times(15, function (i) {
                 p5.text("SIGNAL-TO-NOISE", 150, i * 28);
             })
