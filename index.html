@@ -48,7 +48,7 @@
             if (this.x % 2 === 0 || this.y % 2 === 0) {
                 p5.stroke(p5.random(0, 255), p5.random(0, 255), p5.random(0, 255));
                 p5.noFill();
-                p5.bezier(x, y + 0, x - 10, y + 10, x + 20, y + 50, x + 10, y);
+                p5.bezier(x, y + 0, x - 10, y + 10, x + 10, y + 50, x + 10, y);
             }
             p5.point(x + 10, y);
         };
@@ -119,10 +119,11 @@
         //var rColor = [p5.random(120, 255), p5.random(120, 255), p5.random(120, 255)];
         var verde = [232, 247, 238];
         var fontA = p5.loadFont("Gulim.ttf");
-        var walker = new Walker(0 - 200, 0);
-        var walker2 = new Walker(0 + 200, 0);
-        var walker3 = new Walker(0 - 250, -50);
-        var walker4 = new Walker(0 + 250, -50);
+        var rWalkers = [], lWalkers = [];
+        _.times(6, function(i){
+            rWalkers.push(new Walker(200, -50 * i));
+            lWalkers.push(new Walker(-200, -60 * i));
+        })
 
         p5.setup = function () {
             p5.size(570, 500);
@@ -149,17 +150,23 @@
         p5.draw = function () {
             p5.pushMatrix();
             p5.translate(centerX, centerY);
-            walker.run({direction: "right"});
-            walker2.run({direction: 'left'});
-            walker3.run({direction: 'right'});
-            walker4.run({direction: 'left'});
+            rWalkers.forEach(function(w){
+                w.run({direction: "left"});
+            });
+            lWalkers.forEach(function(w){
+
+            })
+
             p5.popMatrix();
-            p5.fill.apply(this, verde);
+            p5.fill.apply(this, [255]);
             p5.textAlign(100, 400);
             p5.textSize(32);
+            //p5.translate(centerX, centerY);
             _.times(15, function (i) {
-                p5.text("SIGNAL-TO-NOISE", 150, i * 28);
+                p5.text("SIGNAL-TO-NOISE", 135, i * 28);
             })
+
+            p5.text("SIGNAL-TO-NOISE", 135, 28);
             //p5.noFill();
             // bezier(x1, y1, cx1, cy1, cx2, cy2, x2, y2);
             //p5.bezier(0,centerY,lfo1.run(),lfo1.run(),lfo1.run(),lfo1.run(),pWidth,centerY);
