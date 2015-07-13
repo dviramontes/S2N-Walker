@@ -1,0 +1,31 @@
+body {
+  background: black;
+  margin: 0 auto;
+  padding: 0; }
+
+a {
+  text-decoration: none !important; }
+  a :hover {
+    color: darkred; }
+
+h1 {
+  text-align: center;
+  padding: 10px;
+  background: #e145a7; }
+
+h2, h3, h4 {
+  padding: 10px;
+  background: #5cffe4;
+  text-align: right; }
+
+.jumbotron {
+  position: absolute;
+  bottom: 10px;
+  background: rgba(0, 0, 0, 0.2); }
+  .jumbotron .nav {
+    background: whitesmoke; }
+    .jumbotron .nav li a {
+      text-align: center;
+      color: black; }
+
+/*# sourceMappingURL=main.css.map */

@@ -1,0 +1,30 @@
+{
+  "name": "s2n-walker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node node_modules/.bin/webpack-dev-server",
+    "watch": "node node_modules/.bin/webpack --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dviramontes/S2N-Walker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dviramontes/S2N-Walker/issues"
+  },
+  "homepage": "https://github.com/dviramontes/S2N-Walker",
+  "devDependencies": {
+    "babel-core": "^5.6.18",
+    "babel-loader": "^5.3.1",
+    "node-libs-browser": "^0.5.2",
+    "webpack": "^1.10.1"
+  },
+  "dependencies": {
+    "processing-js": "^1.4.13"
+  }
+}

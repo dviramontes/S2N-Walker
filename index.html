@@ -1,179 +1,39 @@
 <!DOCTYPE html>
-<!--
-    Created using JS Bin
-    http://jsbin.com
-
-    Copyright (c) 2015 by dviramontes (http://jsbin.com/rapeto/21/edit)
-
-    Released under the MIT license: http://jsbin.mit-license.org
--->
 <meta name="robots" content="noindex">
 <html>
 <head>
     <meta name="description" content="[p5-1.js]"/>
     <meta charset="utf-8">
     <title>JS Bin</title>
-    <script type="text/javascript"
-            src="js/processing.min.js"></script>
-    <script src="js/lodash.min.js"></script>
+    <!--<script src="//cdnjs.cloudflare.com/ajax/libs/processing.js/1.4.8/processing.min.js//cdnjs.cloudflare.com/ajax/libs/processing.js/1.4.8/processing.min.js"></script>-->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="main.css"/>
 </head>
 <body>
-<canvas id="canvas1" width="200" height="200" border="1"></canvas>
-<script id="jsbin-javascript">
-    var centerX, centerY,
-            pHeight, pWidth,
-            mouse_x, mouse_y,
-            frameRate = 60,
-            walker;
-
-    function sketchProc(p5) {
-
-        "use strict";
-
-        function getRandomInt(max) {
-            return 0 | Math.random() * max + 1;
-        }
-
-        function Walker(x, y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        Walker.prototype.display = function (i) {
-            var x = this.x;
-            var y = this.y;
-            p5.stroke(255, 255);
-            p5.strokeWeight(5);
-            p5.point(x, y);
-            if (this.x % 2 === 0 || this.y % 2 === 0) {
-                p5.stroke(p5.random(0, 255), p5.random(0, 255), p5.random(0, 255));
-                p5.noFill();
-                p5.bezier(x, y + 0, x - 10, y + 10, x + 10, y + 50, x + 10, y);
-            }
-            p5.point(x + 10, y);
-        };
-
-
-        Walker.prototype.walk = function (direction) {
-
-            var cx = getRandomInt(4);
-            var cy = getRandomInt(4);
-            if (direction === "right") {
-                if (cy === 1) {
-                    this.y--;
-                } else if (cx === 2) {
-                    this.x--;
-                } else if (cy === 3) {
-                    this.y++;
-                } else {
-                    this.x++;
-                }
-            } else {
-                if (cy === 1) {
-                    this.y++;
-                } else if (cx === 2) {
-                    this.x++;
-                } else if (cy === 3) {
-                    this.y--;
-                } else {
-                    this.x--;
-                }
-            }
-
-            //console.log(cx,cy);
-        };
-
-        Walker.prototype.run = function (opts) {
-            this.walk(opts.direction);
-            this.display(opts.inf);
-        };
-
-        function LFO(max) {
-            this.max = max;
-        }
-
-        LFO.prototype.run = function () {
-            return this.max * Math.sin(p5.radians(Math.PI * p5.frameCount));
-        };
-
-        var lfo1 = new LFO(200);
-        var lfo2 = new LFO(200);
-
-//        function drawShape(x, y) {
-//            var n = parseInt(lfo1.run(), 10);
-//            var m = parseInt(lfo2.run(), 10);
-//            //var xRand = p5.lerp(n,1,n,1);
-//            for (var i = 1; i < 100; i++) {
-//                var noise = p5.noise(5) * 20;
-//                p5.pushMatrix();
-//                p5.translate(centerX, 250);
-//                p5.rotate(10);
-//                p5.fill(n, 20, i, 77);
-//                p5.strokeWeight(0.5);
-//                p5.stroke(120.0);
-//                p5.bezier(i, i, n, y, i, i * m, x, i);
-//                p5.popMatrix();
-//            }
-//        }
-
-        //var rColor = [p5.random(120, 255), p5.random(120, 255), p5.random(120, 255)];
-        var verde = [232, 247, 238];
-        var fontA = p5.loadFont("Gulim.ttf");
-        var rightWalkers = [], leftWalkers = [];
-        
-        _.times(6, function (i) {
-            rightWalkers.push(new Walker(200, -50 * i));
-            leftWalkers.push(new Walker(-200, -100 * i));
-        });
-
-        p5.setup = function () {
-            p5.size(570, 500);
-            centerX = p5.width / 2;
-            centerY = p5.height / 2;
-            pWidth = p5.width;
-            pHeight = p5.height;
-            p5.textFont(fontA, 34);
-            p5.frameRate(frameRate);
-            p5.smooth();
-            p5.background.apply(null, verde);
-            p5.strokeWeight(0.55);
-            p5.stroke(120);
-            p5.noFill();
-            p5.ellipse(pWidth - 60, pHeight - 60, 100, 100);
-            p5.fill(0);
-            p5.textSize(14);
-            p5.text("MEDIA-LABS", pWidth - 102, pHeight - 55);
-        };
-
-        p5.draw = function () {
-            p5.fill.apply(this, verde);
-            p5.pushMatrix();
-            p5.translate(centerX, centerY);
-            rightWalkers.forEach(function (w) {
-                w.run({direction: "left"});
-            });
-            p5.popMatrix();
-            p5.textAlign(100, 400);
-            p5.textSize(32);
-            _.times(15, function (i) {
-                p5.text("SIGNAL-TO-NOISE", 135, i * 28);
-            });
-            p5.pushMatrix();
-            p5.translate(centerX, centerY);
-            leftWalkers.forEach(function (w) {
-                w.run({direction: "right"});
-            });
-            p5.popMatrix();
-            _.times(15, function (i) {
-                p5.text("SIGNAL-TO-NOISE", 135, i * 28);
-            });
-            // bezier(x1, y1, cx1, cy1, cx2, cy2, x2, y2);
-            p5.stroke(100,100);
-            //p5.bezier(0, centerY, lfo1.run(), lfo1.run(), lfo1.run(), lfo1.run(), pWidth, centerY);
-        };
-    }
-    var canvas = document.getElementById("canvas1");
-    var p5 = new Processing(canvas, sketchProc);
-</script>
-</body>
+<canvas id="canvas1" width="100%" height="100%"></canvas>
+<div class="jumbotron">
+    <div class="container">
+        <div class="col-lg-4">
+            <h1>immaterial</h1>
+            <h4>digital design studio</h4>
+            <ul class="nav">
+                <li></li>
+                <li></li>
+            </ul>
+            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default">
+                        <a href="mailto:imm@aterial.org">
+                            imm@aterial.org</a>
+                    </button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default">client-screener</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="deps/processing.min.js"></script>
+<script src="bundle.js"></script>
 </html>
