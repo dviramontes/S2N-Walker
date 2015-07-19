@@ -5,8 +5,6 @@ body {
 
 a {
   text-decoration: none !important; }
-  a :hover {
-    color: darkred; }
 
 h1 {
   text-align: center;

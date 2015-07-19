@@ -30,7 +30,7 @@ class Walker {
         if (this.x % 2 === 0 || this.y % 2 === 0) {
             p5.stroke(p5.random(0, 255), p5.random(0, 255), p5.random(0, 255));
             p5.noFill();
-            p5.ellipse(x, y, 20, 20);
+            p5.ellipse(x, y, p5.noise(5) * 50, p5.noise(5) * 50);
             //p5.bezier(x, y, x - 10, y + 10, x + 10, y + 50, x + 10, y);
         }
         p5.point(x + 10, y);
@@ -89,7 +89,6 @@ let lfo2 = new LFO(200);
 let drawShape = (x, y) => {
     let n = parseInt(lfo1.tick(), 10);
     let m = parseInt(lfo2.tick(), 10);
-    //let noise = p5.noise(5) * 20;
     for (let i = 1; i < 10; i++) {
         p5.pushMatrix();
         p5.translate(centerX, 250);
@@ -128,13 +127,13 @@ let sketchProc = (p5) => {
         p5.frameRate(frameRate);
         p5.smooth();
         p5.background.apply(this, rColor);
-        //p5.strokeWeight(0.55);
-        //p5.stroke(120);
-        //p5.noFill();
-        //p5.ellipse(pWidth - 60, pHeight - 60, 100, 100);
-        //p5.fill(0);
-        //p5.textSize(14);
-        //p5.text("˚", pWidth - 64, pHeight - 55);
+        p5.strokeWeight(0.55);
+        p5.stroke(120);
+        p5.noFill();
+        p5.ellipse(pWidth - 60, pHeight - 60, 100, 100);
+        p5.fill(0);
+        p5.textSize(14);
+        p5.text("˚", pWidth - 64, pHeight - 55);
     };
 
     p5.draw = () => {
